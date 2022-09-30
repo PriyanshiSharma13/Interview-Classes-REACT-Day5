@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Interview-Classes-REACT-Day5</title>
+</head>
+<body>
+    <div class="App">
+        <h1>Interview-Classes-REACT-Day5</h1>
+        <h2>Q1. High Order Component in react js ?</h2>
+        <h3>Ans- HOC in react js-</h3>
+        <p>Higher-order components or HOC is the advanced method of reusing the component functionality logic. It simply takes the original component and returns the enhanced component.</p>
+        <p>Syntax:</p>
+        <pre>const EnhancedComponent = higherOrderComponent(OriginalComponent);</pre>
+        <h4>Reason to use Higher-Order component:</h4>
+        <ol>
+            <li>Easy to handle</li>
+            <li>Get rid of copying the same logic in every component</li>
+            <li>Makes code more readable</li>
+        </ol>
+        <hr>
+        <h2>Q2. Do you know about SEO ? Is it true that react js supports SEO support ?</h2>
+        <h3>Ans- SEO-</h3>
+        <p>Search engine optimization (SEO) is the process of structuring and organizing a website to expand the volume of traffic by increasing its position and frequency of appearance in search engines, focusing on keywords that reveal the specifics of the site. It helps bring as many people to your web service as possible and helps create organic traffic on your website, turning your visitors into customers.</p>
+        <p>SEO is one of the most reliable instruments to bring your website to the first five results in Google search.</p>
+        <p>React is used to build static, dynamic, and single-page apps. These three types of apps aren’t level in terms of SEO-friendliness.</p>
+        <ol>
+            <li>Static web apps — SEO-friendly</li>
+            <li>Dynamic web apps — SEO-friendly</li>
+            <li>Single-page apps (SPAs) — not SEO-friendly</li>
+        </ol>
+        <p>SPAs load only a single web document and then update the content of that page via JavaScript APIs. Therefore, such apps have all content on a single page. This content changes without page refresh. Think of social media feed, mail inbox, etc. One of their main advantages is great load speeds. On the other hand, client-side rendering interferes with search engine optimization.</p>
+        <h4>Ways of building an SEO Friendly React App-</h4>
+        <ol>
+            <li>Use SEO friendly JavaScript framework: Gatsby.js,Next.js</li>
+            <li>Create static or dynamic web apps</li>
+            <li>Use pre-renders</li>
+        </ol>
+        <hr>
+        <h2>Q3. Clean up in useEffect.</h2>
+        <h3>Ans- Cleaning up useEffect-</h3>
+        <p>The hook comes with a cleanup function, which you might not always need, but it can come in handy.</p>
+        <p>To invoke the cleanup function you can simply add a return function like so:</p>
+        <pre>useEffect(() => {
+            // Your effect
+          
+            return () => {
+              // Cleanup
+            };
+          }, []);</pre>
+        <p>The cleanup can prevent memory leaks and remove unwanted things. Some use-cases for this are:</p>
+        <ol>
+            <li>Clean up subscriptions</li>
+            <li>Clean up modals</li>
+            <li>Remove event listeners</li>
+            <li>Clear timeouts</li>
+        </ol>
+        <p>Example- A function that adds something only after a specific time.</p>
+        <pre>const [show, setShow] = useState(false);
+            useEffect(() => {
+            let timer = setTimeout(() => setShow(true), 3000);
+            }, []);</pre>
+        <p>However, this will create a timeout in memory, so it would be best to clean this up.For this let's add the cleanup function:</p>
+        <pre>useEffect(() => {
+            let timer = setTimeout(() => setShow(true), 3000);
+            return () => {
+              clearTimeout(timer);
+            };
+          }, []);</pre>
+        <hr>
+        <h2>Q4. What is the use of useCallback and useMemo ?</h2>
+        <h3>Ans- Fundamentally, useMemo and useCallback are tools built to help us optimize re-renders. They do this in two ways:</h3>
+        <ol>
+            <li>Reducing the amount of work that needs to be done in a given render.</li>
+            <li>Reducing the number of times that a component needs to re-render.</li>
+        </ol>
+        <p>useMemo takes two arguments:</p>
+        <ol>
+            <li>A chunk of work to be performed, wrapped up in a function.</li>
+            <li>A list of dependencies.</li>
+        </ol>
+        <p>useMemo is essentially like a lil’ cache, and the dependencies are the cache invalidation strategy.This is commonly known as memoization, and it's why this hook is called “useMemo”.</p>
+        <h4>useCallback hook-</h4>
+        <p>It's the exact same thing, but for functions instead of arrays / objects.Similar to arrays and objects.</p>
+        <p>useCallback serves the same purpose as useMemo, but it's built specifically for functions. We hand it a function directly, and it memoizes that function, threading it between renders.</p>
+        <p>useCallback is syntactic sugar. It exists purely to make our lives a bit nicer when trying to memoize callback functions.</p>
+        <pre>
+            // This:
+            React.useCallback(function helloWorld(){}, []);
+
+            // ...Is functionally equivalent to this:
+            React.useMemo(() => function helloWorld(){}, []);</pre>
+        <hr>
+        <h2>Q5. Why do we need keys in react list ?</h2>
+        <h3>Ans- Keys in react list-</h3>
+        <p>A “key” is a special string attribute you need to include when creating lists of elements in React. Keys are used in React to identify which items in the list are changed, updated, or deleted. In other words, we can say that keys are used to give an identity to the elements in the lists. It is recommended to use a string as a key that uniquely identifies the items in the list.</p>
+        <p>You can also assign the array indexes as keys to the list items.Assigning indexes as keys are highly discouraged because if the elements of the arrays get reordered in the future then it will get confusing for the developer as the keys for the elements will also change.</p>
+        <h4>Using Keys with Components-</h4>
+        <p>Consider a situation where you have created a separate component for list items and you are extracting list items from that component. In that case, you will have to assign keys to the component you are returning from the iterator and not to the list items. That is you should assign keys to "Component" and not to "li" A good practice to avoid mistakes is to keep in mind that anything you are returning from inside of the map() function is needed to be assigned key.</p>
+        <h4>Uniqueness of Keys-</h4>
+        <p>Keys assigned to the array elements must be unique. But,this does not mean that the keys should be globally unique. All the elements in a particular array should have unique keys. That is, two different arrays can have the same set of keys.</p>
+        <p>Note: Keys are not the same as props, only the method of assigning “key” to a component is the same as that of props. Keys are internal to React and can not be accessed from inside of the component like props. Therefore, we can use the same value we have assigned to the Key for any other prop we are passing to the Component.</p>
+        <hr>
+        <h2>Q6. Do you know about redux ?</h2>
+        <h3>Ans- Redux-</h3>
+        <p>Redux helps you deal with shared state management, but like any tool, it has tradeoffs. It's not designed to be the shortest or fastest way to write code. It's intended to help answer the question "When did a certain slice of state change, and where did the data come from?", with predictable behavior.</p>
+        <p>Redux is most useful in cases when:</p>
+        <ol>
+            <li>You have large amounts of application state that are needed in many places in the app</li>
+            <li>The app state is updated frequently</li>
+            <li>The logic to update that state may be complex</li>
+            <li>The app has a medium or large-sized codebase, and might be worked on by many people</li>
+            <li>You need to see how that state is being updated over time</li>
+        </ol>
+        <p>Redux does: state management, caching fetched server data, and passing data through the UI.</p>
+        <p>Command for installing redux in the react app-</p>       
+        <pre>npm install redux</pre>
+        <p>A UI binding library like React-Redux handles the store interaction logic, so you don't have to write that code yourself.</p>
+        <p>The connect() function takes two primary arguments, both optional. The first, mapStateToProps, is a function you provide to pull data from the store when it changes, and pass those values as props to your component. The second, mapDispatchToProps, is a function you provide to make use of the store's dispatch function, usually by creating pre-bound versions of action creators that will automatically dispatch their actions as soon as they are called.</p>
+    </div>
+</body>
+</html>
